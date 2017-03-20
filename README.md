@@ -1,31 +1,28 @@
-#New Custom HUD Connect Message
+<h1>New Custom HUD Connect Message</h1>
 
 A new Connect Message plugin for <u><b> CS:GO servers</b></u>, using the Source Mod Addon;
 
-<h1>Why another connect message since it exists so many of them?</h1>
+<h2>Why another connect message since it exists many of them on public?</h2>
+
+Well, since the last update, Valve added a new custom HUD, which can be used for so many things.
+
+Things that this connect message plugin has:
 
 <ul>
-<li>Added Translations, to be easy to configure to server owners.</li>
-<li>Added colors to the translations, if you want a colorfull text.</li>
-<li>Added a CVAR to change the time you want to be fully god mode.</li>
-<li>Converted everything to the new Syntax.</li>
+<li>Everything written using the Transitional Syntax.</li>
+<li>CVARs to set which color you want to the text (using the RGB colors code).</li>
+<li>CVARs to set how much time to Fade In or Out.</li>
+<li>CVAR to set how much time you want to hold the text in your screen.</li>
+<li>CVARS to set the position you want (horizontal or vertical) in your screen.</li>
 </ul>
 
 
 Installation:
 <ol>
-<li>Drag the file named <i>telekill_protect.smx</i> to <b>sourcemod/plugins</b>.</li>
-<li>Drag the file named <i>sm_telekill_protection.phrases.txt</i> to <b>sourcemod/translations</b>.</li>
+<li>Drag the file named <i>newhud_connectmessage.smx</i> to <b>addons/sourcemod/plugins</b>.</li>
 <li>Load the plugin or just wait for the next map.</li>
+<li>Change the times, colors and coordenates as you wish in the file <i>newhud_connectmessage.cfg</i> located in <b>cfg/sourcemod</b></li>
 </ol>
-
-For the developers:
-
-To compile, you need the ColorVariables include (to add the colors) - https://forums.alliedmods.net/showthread.php?t=267743
-
-Known bugs:
-
-The trigger_push entity can also triggers this, which I didn't fix yet for private reasons (I will release a new version ASAP).
 
 I hope you enjoyed!
 
