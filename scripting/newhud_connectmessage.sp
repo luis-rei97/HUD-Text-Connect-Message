@@ -18,8 +18,8 @@ public Plugin myinfo =
 	name = "New Custom Hud Connect's Message",
 	author = "Hallucinogenic Troll, Bulletford for the Snippet",
 	description = "A Plugin which you can use the new HUD to a player connection.",
-	version = "1.0",
-	url = ""
+	version = "1.1",
+	url = "PTFun.net/newsite"
 };
 
 public void OnPluginStart()
