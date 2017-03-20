@@ -18,7 +18,7 @@ public Plugin myinfo =
 	name = "New Custom Hud Connect's Message",
 	author = "Hallucinogenic Troll, Bulletford for the Snippet",
 	description = "A Plugin which you can use the new HUD to a player connection.",
-	version = "1.1",
+	version = "1.2",
 	url = "PTFun.net/newsite"
 };
 
@@ -119,14 +119,4 @@ public void OnClientPutInServer(int client)
 		
 		AcceptEntityInput(entity, "display");
 	}
-}
-
-stock bool IsValidClient(int client)
-{
-	if(client >= 1 && client <= MaxClients && IsClientConnected(client) && IsClientInGame(client) && IsPlayerAlive(client))
-	{
-		return true;
-	}
-	
-	return false;
 }
