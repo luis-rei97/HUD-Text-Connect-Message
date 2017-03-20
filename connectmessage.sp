@@ -9,6 +9,9 @@ Handle g_connect_green = INVALID_HANDLE;
 Handle g_connect_blue = INVALID_HANDLE;
 Handle g_connect_fade_in = INVALID_HANDLE;
 Handle g_connect_fade_out = INVALID_HANDLE;
+Handle g_connect_x_coordenates = INVALID_HANDLE;
+Handle g_connect_y_coordenates = INVALID_HANDLE;
+Handle g_connect_hold_time = INVALID_HANDLE;
 
 public Plugin myinfo = 
 {
@@ -23,10 +26,13 @@ public void OnPluginStart()
 {	
 	g_connect_enable = CreateConVar("sm_connect_enable", "1", "It shows the connect messages in the new HUD.", FCVAR_NOTIFY | FCVAR_DONTRECORD);
 	g_connect_red = CreateConVar("sm_connect_red", "255", "RGB Code for the Red color used in the text");
-	g_connect_green = CreateConVar("sm_connect_red", "255", "RGB Code for the Green color used in the text");
-	g_connect_blue = CreateConVar("sm_connect_red", "255", "RGB Code for the Blue color used in the text");
-	g_connect_fade_in = CreateConVar("sm_connect_fade_in", "Time you want (in seconds) to appear completely in your screen");
-	g_connect_fade_out = CreateConVar("sm_connect_fade_in", "Time you want (in seconds) to disappear completely in your screen");
+	g_connect_green = CreateConVar("sm_connect_green", "255", "RGB Code for the Green color used in the text");
+	g_connect_blue = CreateConVar("sm_connect_blue", "255", "RGB Code for the Blue color used in the text", _, true, 0.0, true, 255.0);
+	g_connect_fade_in = CreateConVar("sm_connect_fade_in", "1.5", "Time you want (in seconds) to appear completely in your screen", _, true, 0.0, false);
+	g_connect_fade_out = CreateConVar("sm_connect_fade_out", "0.5", "Time you want (in seconds) to disappear completely in your screen", _, true, 0.0, false);
+	g_connect_hold_time = CreateConVar("sm_connect_hold_time", "5.0", "Time you want (in seconds) to stay in the screen", _, true, 0.0, false);
+	g_connect_x_coordenates = CreateConVar("sm_connect_x", "0.25", "How much you want (horizontally) your text? 0.0 = Left, 1.0 = Right", _, true, 0.0, true, 1.0);
+	g_connect_y_coordenates = CreateConVar("sm_connect_y", "0.125", "How much you want (vertically) your text? 0.0 = Top, 1.0 = Bottom", _, true, 0.0, true, 1.0);
 	AutoExecConfig(true, "newhud_connectmessage");
 }
 
@@ -75,7 +81,13 @@ public void OnClientPutInServer(int client)
 		
 		
 		DispatchKeyValue(entity, "fxtime", "0.25");
-		DispatchKeyValue(entity, "holdtime", "5.0");
+		
+		// Getting the time you want to stay in the screen
+		float hold_time = GetConVarFloat(g_connect_hold_time);
+		char hold_time_char[64];
+		Format(hold_time_char, 64, "%f", hold_time);
+		
+		DispatchKeyValue(entity, "holdtime", hold_time_char);
 		if(!GeoipCountry(IP, country, sizeof(country)))
 		{
 			Format(message, 256, "Player %s joined the server!", name);
@@ -87,11 +99,24 @@ public void OnClientPutInServer(int client)
 			DispatchKeyValue(entity, "message", message);
 		}
 		DispatchKeyValue(entity, "spawnflags", "0"); 	
-		DispatchKeyValue(entity, "x", "0.25");
-		DispatchKeyValue(entity, "y", "0.125"); 		
+		
+		
+		// Getting the horizontal coordenates you want in the screen;
+		float x_coord = GetConVarFloat(g_connect_x_coordenates);
+		char x_coord_char[64];
+		Format(x_coord_char, 64, "%f", x_coord);
+		DispatchKeyValue(entity, "x", x_coord_char);
+		
+		// Getting the vertical coordenates you want in the screen;
+		float y_coord = GetConVarFloat(g_connect_y_coordenates);
+		char y_coord_char[64];
+		Format(y_coord_char, 64, "%f", y_coord);
+		DispatchKeyValue(entity, "y", y_coord_char);
+		
 		DispatchSpawn(entity);
 		SetVariantString("!activator");
 		
+		// Checking in all clients, if they are in the server, to display the HUD in the screen;
 		for (int i = 0; i < MaxClients; i++)
 		{
 			if(IsValidClient(i))
