@@ -90,15 +90,16 @@ public void OnClientPutInServer(int client)
 		DispatchKeyValue(entity, "holdtime", hold_time_char);
 		if(!GeoipCountry(IP, country, sizeof(country)))
 		{
-			Format(message, 256, "Player %s joined the server!", name);
+			Format(message, 256, "Player %s has joined the server!", name);
 			DispatchKeyValue(entity, "message", message);
 		}
 		else
 		{
-			Format(message, 256, "Player %s joined the server from %s!", name, country);
+			Format(message, 256, "Player %s has joined the server, from %s!", name, country);
 			DispatchKeyValue(entity, "message", message);
 		}
-		DispatchKeyValue(entity, "spawnflags", "0"); 	
+		
+		DispatchKeyValue(entity, "spawnflags", "1"); 	
 		
 		
 		// Getting the horizontal coordenates you want in the screen;
@@ -116,19 +117,7 @@ public void OnClientPutInServer(int client)
 		DispatchSpawn(entity);
 		SetVariantString("!activator");
 		
-		// Checking in all clients, if they are in the server, to display the HUD in the screen;
-		for (int i = 0; i < MaxClients; i++)
-		{
-			if(IsValidClient(i))
-			{
-				AcceptEntityInput(entity, "display", i);
-			}
-		}
-        
-	} 
-	else
-	{
-		CloseHandle(g_connect_enable);
+		AcceptEntityInput(entity, "display");
 	}
 }
 
