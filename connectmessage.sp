@@ -7,6 +7,8 @@ Handle g_connect_enable = INVALID_HANDLE;
 Handle g_connect_red = INVALID_HANDLE;
 Handle g_connect_green = INVALID_HANDLE;
 Handle g_connect_blue = INVALID_HANDLE;
+Handle g_connect_fade_in = INVALID_HANDLE;
+Handle g_connect_fade_out = INVALID_HANDLE;
 
 public Plugin myinfo = 
 {
@@ -23,6 +25,8 @@ public void OnPluginStart()
 	g_connect_red = CreateConVar("sm_connect_red", "255", "RGB Code for the Red color used in the text");
 	g_connect_green = CreateConVar("sm_connect_red", "255", "RGB Code for the Green color used in the text");
 	g_connect_blue = CreateConVar("sm_connect_red", "255", "RGB Code for the Blue color used in the text");
+	g_connect_fade_in = CreateConVar("sm_connect_fade_in", "Time you want (in seconds) to appear completely in your screen");
+	g_connect_fade_out = CreateConVar("sm_connect_fade_in", "Time you want (in seconds) to disappear completely in your screen");
 	AutoExecConfig(true, "newhud_connectmessage");
 }
 
@@ -48,15 +52,28 @@ public void OnClientPutInServer(int client)
 		int green = GetConVarInt(g_connect_green);
 		int blue = GetConVarInt(g_connect_blue);
 		
-		// Since it's a string, let's put all together
 		char rgb_colors[64];
 		Format(rgb_colors, 64, "%d %d %d", red, green, blue);
 		
 		DispatchKeyValue(entity, "color", rgb_colors);
 		DispatchKeyValue(entity, "color2", "0 0 0");
 		DispatchKeyValue(entity, "effect", "0");
-		DispatchKeyValue(entity, "fadein", "1.5");
-		DispatchKeyValue(entity, "fadeout", "0.5");
+		
+		// Getting the time you want to appear in the screen
+		float fade_in = GetConVarFloat(g_connect_fade_in);
+		
+		char fade_in_char[64];
+		Format(fade_in_char, 64, "%f", fade_in)
+		DispatchKeyValue(entity, "fadein", fade_in_char);
+		
+		// Getting the time you want to disappear in the screen
+		float fade_out = GetConVarFloat(g_connect_fade_out);
+		
+		char fade_out_char[64];
+		Format(fade_out_char, 64, "%f", fade_out)
+		DispatchKeyValue(entity, "fadeout", fade_out_char);
+		
+		
 		DispatchKeyValue(entity, "fxtime", "0.25");
 		DispatchKeyValue(entity, "holdtime", "5.0");
 		if(!GeoipCountry(IP, country, sizeof(country)))
