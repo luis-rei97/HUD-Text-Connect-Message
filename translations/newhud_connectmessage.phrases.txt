@@ -1,0 +1,14 @@
+"Phrases"
+{
+	"Player Connected With Unknown Country"
+	{
+		"#format"	"{1:s}"
+		"en"		"O jogador {1} entrou no servidor!"
+	}
+	
+	"Player Connected With Country"
+	{
+		"#format"	"{1:s}, {2:s}"
+		"en"		"O jogador {1} entrou no servidor, de {2}!"
+	}
+}
