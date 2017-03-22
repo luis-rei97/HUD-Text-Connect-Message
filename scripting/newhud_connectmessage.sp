@@ -40,15 +40,18 @@ public void OnPluginStart()
 	g_connect_y_coordenates = CreateConVar("sm_connect_y", "0.125", "How much you want (vertically) your text? 0.0 = Top, 1.0 = Bottom", _, true, 0.0, true, 1.0);
 	g_connect_channel = CreateConVar("sm_connect_channel", "1", "Text size that you want to appear in the screen", _, true, 1.0, true, 5.0);
 	
+	LoadTranslations("newhud_connectmessage.phrases");
+	
 	AutoExecConfig(true, "newhud_connectmessage");
 }
 
-public void OnClientPostAdminCheck(int client)
+public void OnClientPutInServer(int client)
 {
 	// Check if you enabled the plugin (with the cvar set on 1);
 	
 	if(g_connect_enable)
-	{		
+	{			
+			
 		char name[99];
 		char IP[99];
 		char country[99];
@@ -109,12 +112,12 @@ public void OnClientPostAdminCheck(int client)
 		if(!GeoipCountry(IP, country, sizeof(country)))
 		{
 			//Format(message, 256, "O jogador %s entrou no servidor!", name);
-			Format(message, 256, "%T", "Player Connected With Unknown Country", name);
+			Format(message, 256, "%t", "PlayerConnectWithoutCountry", name);
 			DispatchKeyValue(entity, "message", message);
 		}
 		else
 		{
-			Format(message, 256, "%T", "Player Connected With Country", name, country);
+			Format(message, 256, "%t", "Player Connected With Country", name, country);
 			DispatchKeyValue(entity, "message", message);
 		}
 		
