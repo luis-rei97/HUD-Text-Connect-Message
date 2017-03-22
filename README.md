@@ -20,6 +20,7 @@ Things that this connect message plugin has:
 Installation:
 <ol>
 <li>Drag the file named <i>newhud_connectmessage.smx</i> to <b>addons/sourcemod/plugins</b>.</li>
+<li>Drag the file named <i>newhud_connectmessage.phrases.txt</i> to <b>addons/sourcemod/translations</b>.</li>
 <li>Load the plugin or just wait for the next map.</li>
 <li>Change the times, colors and coordenates as you wish in the file <i>newhud_connectmessage.cfg</i> located in <b>cfg/sourcemod</b></li>
 </ol>
