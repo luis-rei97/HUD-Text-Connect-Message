@@ -3,14 +3,16 @@
 	"PlayerConnectWithoutCountry"
 	{
 		"#format"	"{1:s}"
+		"de"		"Spieler {1} hat den Server betreten!"
 		"en"		"Player {1} has joined the server!"
-		"en"		"O jogador {1} entrou no servidor!"
+		"pt"		"O jogador {1} entrou no servidor!"
 	}
 	
 	"Player Connected With Country"
 	{
 		"#format"	"{1:s},{2:s}"
+		"de"		"Spieler {1} aus {2} hat den Server betreten!"
 		"en"		"Player {1} has joined the server, from {2}!"
-		"en"		"O jogador {1} entrou no servidor, de {2}!"
+		"pt"		"O jogador {1} entrou no servidor, de {2}!"
 	}
 }
