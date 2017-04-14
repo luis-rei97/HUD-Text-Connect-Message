@@ -16,14 +16,13 @@ Handle g_connect_fade_out = INVALID_HANDLE;
 Handle g_connect_x_coordenates = INVALID_HANDLE;
 Handle g_connect_y_coordenates = INVALID_HANDLE;
 Handle g_connect_hold_time = INVALID_HANDLE;
-Handle g_connect_channel = INVALID_HANDLE;
 
 public Plugin myinfo = 
 {
 	name = "New Custom Hud Connect's Message",
 	author = "Hallucinogenic Troll, Bulletford for the Snippet",
 	description = "A Plugin which you can use the new HUD to a player connection.",
-	version = "1.3",
+	version = "1.4",
 	url = "PTFun.net/newsite"
 };
 
@@ -38,7 +37,6 @@ public void OnPluginStart()
 	g_connect_hold_time = CreateConVar("sm_connect_hold_time", "5.0", "Time you want (in seconds) to stay in the screen", _, true, 0.0, false);
 	g_connect_x_coordenates = CreateConVar("sm_connect_x", "0.25", "How much you want (horizontally) your text? 0.0 = Left, 1.0 = Right", _, true, 0.0, true, 1.0);
 	g_connect_y_coordenates = CreateConVar("sm_connect_y", "0.125", "How much you want (vertically) your text? 0.0 = Top, 1.0 = Bottom", _, true, 0.0, true, 1.0);
-	g_connect_channel = CreateConVar("sm_connect_channel", "1", "Text size that you want to appear in the screen", _, true, 1.0, true, 5.0);
 	
 	LoadTranslations("newhud_connectmessage.phrases");
 	
@@ -61,87 +59,48 @@ public void OnClientPutInServer(int client)
 		GetClientName(client, name, sizeof(name));
 		GetClientIP(client, IP, sizeof(IP), true);
 		
-		// Creating the entity
-		int entity = CreateEntityByName("game_text");
-		
-		// Getting the Channel you Want (Text Size)
-		int channel = GetConVarInt(g_connect_channel);
-		
-		char channel_char[64];
-		
-		Format(channel_char, sizeof(channel_char), "%d", channel);
-		DispatchKeyValue(entity, "channel", channel_char);
-		
 		// Getting the RGB code from the colors you set in the cfg
 		int red = GetConVarInt(g_connect_red);
 		int green = GetConVarInt(g_connect_green);
 		int blue = GetConVarInt(g_connect_blue);
 		
-		char rgb_colors[64];
-		Format(rgb_colors, 64, "%d %d %d", red, green, blue);
-		
-		DispatchKeyValue(entity, "color", rgb_colors);
-		DispatchKeyValue(entity, "color2", "0 0 0");
-		DispatchKeyValue(entity, "effect", "0");
-		
 		// Getting the time you want to appear in the screen
 		float fade_in = GetConVarFloat(g_connect_fade_in);
-		
-		char fade_in_char[64];
-		Format(fade_in_char, 64, "%f", fade_in);
-		DispatchKeyValue(entity, "fadein", fade_in_char);
 		
 		// Getting the time you want to disappear in the screen
 		float fade_out = GetConVarFloat(g_connect_fade_out);
 		
-		char fade_out_char[64];
-		Format(fade_out_char, 64, "%f", fade_out);
-		DispatchKeyValue(entity, "fadeout", fade_out_char);
-		
-		
-		DispatchKeyValue(entity, "fxtime", "0.25");
-		
 		// Getting the time you want to stay in the screen
 		float hold_time = GetConVarFloat(g_connect_hold_time);
-		char hold_time_char[64];
-		Format(hold_time_char, 64, "%f", hold_time);
-		
-		DispatchKeyValue(entity, "holdtime", hold_time_char);
 		
 		// If it can't trace your country, it won't display saying "Unknown Country";
 		if(!GeoipCountry(IP, country, sizeof(country)))
 		{
-			//Format(message, 256, "O jogador %s entrou no servidor!", name);
 			Format(message, 256, "%t", "PlayerConnectWithoutCountry", name);
-			DispatchKeyValue(entity, "message", message);
 		}
 		else
 		{
 			Format(message, 256, "%t", "Player Connected With Country", name, country);
-			DispatchKeyValue(entity, "message", message);
 		}
-		
-		// Since this is a connect message, it will display to all the players that are already playing in the server.
-		// If this is set to 0, it will display on client only;
-		
-		DispatchKeyValue(entity, "spawnflags", "1");
 		
 		
 		// Getting the horizontal coordenates you want in the screen;
 		float x_coord = GetConVarFloat(g_connect_x_coordenates);
-		char x_coord_char[64];
-		Format(x_coord_char, 64, "%f", x_coord);
-		DispatchKeyValue(entity, "x", x_coord_char);
 		
 		// Getting the vertical coordenates you want in the screen;
 		float y_coord = GetConVarFloat(g_connect_y_coordenates);
-		char y_coord_char[64];
-		Format(y_coord_char, 64, "%f", y_coord);
-		DispatchKeyValue(entity, "y", y_coord_char);
 		
-		DispatchSpawn(entity);
-		SetVariantString("!activator");
+		// Since the Text Parameters are now supported in CS:GO, it's better to use this way.
+		for(int i = 1; i <= MaxClients; i++)
+		{
+			if(IsClientInGame(i) && !IsFakeClient(i))
+			{
+				SetHudTextParams(x_coord, y_coord, hold_time, red, green, blue, 255, 0, 0.25, fade_in, fade_out);
+				ShowHudText(client, 5, message);
+			}
+		}
+    
 		
-		AcceptEntityInput(entity, "display");
+		
 	}
 }
