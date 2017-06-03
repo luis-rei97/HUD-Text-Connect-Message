@@ -1,3 +1,21 @@
+/* [CS:GO] New HUD Connect Message
+ *
+ *  Copyright (C) 2017 Hallucinogenic Troll
+ * 
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) 
+ * any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with 
+ * this program. If not, see http://www.gnu.org/licenses/.
+ */
+
+
 #include <sourcemod>
 #include <geoip>
 #include <sdktools>
@@ -7,15 +25,15 @@
 #pragma newdecls required
 
 // CVARs to customize the HUD as you want;
-Handle g_connect_enable = INVALID_HANDLE;
-Handle g_connect_red = INVALID_HANDLE;
-Handle g_connect_green = INVALID_HANDLE;
-Handle g_connect_blue = INVALID_HANDLE;
-Handle g_connect_fade_in = INVALID_HANDLE;
-Handle g_connect_fade_out = INVALID_HANDLE;
-Handle g_connect_x_coordenates = INVALID_HANDLE;
-Handle g_connect_y_coordenates = INVALID_HANDLE;
-Handle g_connect_hold_time = INVALID_HANDLE;
+ConVar g_connect_enable;
+ConVar g_connect_red;
+ConVar g_connect_green;
+ConVar g_connect_blue;
+ConVar g_connect_fade_in;
+ConVar g_connect_fade_out;
+ConVar g_connect_x_coordenates;
+ConVar g_connect_y_coordenates;
+ConVar g_connect_hold_time;
 
 public Plugin myinfo = 
 {
@@ -43,12 +61,17 @@ public void OnPluginStart()
 	AutoExecConfig(true, "newhud_connectmessage");
 }
 
-public void OnClientPutInServer(int client)
+public void OnClientPostAdminCheck(int client)
 {
 	// Check if you enabled the plugin (with the cvar set on 1);
 	
 	if(g_connect_enable)
 	{			
+		
+		if(CheckCommandAccess(client, "sm_admin", ADMFLAG_GENERIC))
+		{
+			return;
+		}
 			
 		char name[99];
 		char IP[99];
