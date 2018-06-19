@@ -1,0 +1,16 @@
+"Phrases"
+{
+	"PlayerJoinedTheServer"
+	{
+		"#format"	"{1:s}"
+		"en"		"Player {1} has joined the server"
+		"pt"		"O jogador {1} entrou no servidor!"
+	}
+	
+	"From Country"
+	{
+		"#format"	"{1:s}"
+		"en"		"from {1}"
+		"pt"		"de {1}"
+	}
+}
