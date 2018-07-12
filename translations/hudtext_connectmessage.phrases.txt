@@ -2,7 +2,7 @@
 {
 	"PlayerJoinedTheServer"
 	{
-		"#format"	"{1:s}"
+		"#format"	"{1:N}"
 		"en"		"Player {1} has joined the server"
 		"pt"		"O jogador {1} entrou no servidor!"
 	}
