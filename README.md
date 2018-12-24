@@ -6,6 +6,7 @@
 - [Sourcemod](https://www.sourcemod.net/);
 
 <h3>ConVars</h3>
+
 - <b>sm_hudtext_connectmessage_red</b> (Default: 255) - RGB Red Color to the Connect Message;
 - <b>sm_hudtext_connectmessage_green</b> (Default: 255) - RGB Green Color to the Connect Message;
 - <b>sm_hudtext_connectmessage_blue</b> (Default: 255) - RGB Blue Color to the Connect Message;
