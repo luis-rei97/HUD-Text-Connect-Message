@@ -1,11 +1,17 @@
 "Phrases"
 {
+	"VIPJoinedTheServer"
+	{
+		"#format"	"{1:N}"
+		"en"		"VIP {1} has joined the server"
+		"pt"		"O VIP {1} entrou no servidor!"
+	}
+	
 	"PlayerJoinedTheServer"
 	{
 		"#format"	"{1:N}"
 		"en"		"Player {1} has joined the server"
 		"pt"		"O jogador {1} entrou no servidor!"
-		"fr"		"Le joueur {1} a rejoint le serveur"
 	}
 	
 	"From Country"
@@ -13,6 +19,5 @@
 		"#format"	"{1:s}"
 		"en"		"from {1}"
 		"pt"		"de {1}"
-		"fr"		"depuis {1}"
 	}
 }
