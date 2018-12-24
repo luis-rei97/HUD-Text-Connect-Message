@@ -3,7 +3,8 @@
 <p>A simple connect message plugin, which shows the player connection from the HUD Text Message</p>
 
 <h2>Requirements: </h2>
-- [Sourcemod](https://www.sourcemod.net/);
+
+- [Sourcemod](https://www.sourcemod.net/)
 
 <h3>ConVars</h3>
 
