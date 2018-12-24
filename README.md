@@ -4,7 +4,7 @@
 
 <h2>Requirements: </h2>
 
-- [Sourcemod](https://www.sourcemod.net/)
+- [Sourcemod](https://www.sourcemod.net/);
 
 <h3>ConVars</h3>
 
