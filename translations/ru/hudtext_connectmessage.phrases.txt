@@ -1,0 +1,20 @@
+"Phrases"
+{
+	"VIPJoinedTheServer"
+	{
+		"#format"	"{1:N}"
+		"ru"		"VIP {1} вступает в игру"
+	}
+	
+	"PlayerJoinedTheServer"
+	{
+		"#format"	"{1:N}"
+		"ru"		"Игрок {1} вступает в игру"
+	}
+	
+	"From Country"
+	{
+		"#format"	"{1:s}"
+		"ru"		"из {1}"
+	}
+}
